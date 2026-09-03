@@ -1,73 +1,58 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Portal de Informações</title>
-  <link rel="stylesheet" href="estilo.css">
-</head>
-<body>
+.card-container {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
 
-  <header>
-    <h1>Dicas de Saúde e Bem-Estar</h1>
-    <p>Clique em qualquer card para ver mais detalhes.</p>
-  </header>
+.card {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 16px;
+  cursor: pointer;
+  width: 220px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  transition: transform 0.2s;
+}
 
-  <main class="container">
-    <div class="cards-grid">
-      <!-- Card 1 -->
-      <article class="card" 
-               data-title="Alimentação Saudável" 
-               data-text="Uma alimentação equilibrada na terceira idade deve ser rica em fibras, proteínas, cálcio e água. É fundamental priorizar alimentos naturais, como frutas, legumes e grãos integrais, e reduzir o consumo de sal e açúcar.">
-        <h3>Alimentação Saudável</h3>
-        <p>Dicas sobre nutrição e hidratação adequada para a terceira idade.</p>
-        <button class="btn-card">Saiba mais</button>
-      </article>
+.card:hover {
+  transform: translateY(-4px);
+}
 
-      <!-- Card 2 -->
-      <article class="card" 
-               data-title="Atividade Física" 
-               data-text="A prática regular de exercícios leves, como caminhadas, hidroginástica e alongamentos, melhora a circulação, fortalece os ossos e previne quedas. Lembre-se de consultar um médico antes de iniciar novas atividades.">
-        <h3>Atividade Física</h3>
-        <p>Benefícios do movimento constante para o corpo e para a mente.</p>
-        <button class="btn-card">Saiba mais</button>
-      </article>
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  justify-content: center;
+  align-items: center;
+}
 
-      <!-- Card 3 -->
-      <article class="card" 
-               data-title="Saúde Mental" 
-               data-text="Manter a mente ativa com leituras, jogos de raciocínio, trabalhos manuais e boa convivência social ajuda a prevenir o declínio cognitivo e combate a solidão e a ansiedade.">
-        <h3>Saúde Mental</h3>
-        <p>A importância do estímulo cognitivo e do convívio comunitário.</p>
-        <button class="btn-card">Saiba mais</button>
-      </article>
+.modal-content {
+  background-color: #fff;
+  padding: 24px;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 400px;
+  position: relative;
+}
 
-      <!-- Card 4 -->
-      <article class="card" 
-               data-title="Prevenção de Quedas" 
-               data-text="Para prevenir acidentes em casa: mantenha os ambientes bem iluminados, remova tapetes soltos, instale barras de apoio no banheiro e prefira calçados antiderrapantes com salto baixo.">
-        <h3>Prevenção de Quedas</h3>
-        <p>Segurança no lar e adaptações simples no ambiente.</p>
-        <button class="btn-card">Saiba mais</button>
-      </article>
-    </div>
-  </main>
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 24px;
+  cursor: pointer;
+}
 
-  <!-- Estrutura do Modal -->
-  <div id="modal" class="modal-overlay" aria-hidden="true" role="dialog">
-    <div class="modal-content">
-      <button id="modal-close" class="modal-close" aria-label="Fechar modal">&times;</button>
-      <h2 id="modal-title">Título do Modal</h2>
-      <p id="modal-body">Conteúdo detalhado aqui...</p>
-      
-      <div class="modal-actions">
-        <button id="btn-read" class="btn-read">
-          🔊 Ouvir Texto
-        </button>
-      </div>
-    </div>
-  </div>
-
-  <script src="script.js"></script>
-</body>
-</html>
+#btn-leitura {
+  margin-top: 16px;
+  padding: 8px 16px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
