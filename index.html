@@ -1,19 +1,34 @@
-<div class="card-container">
-  <div class="card" data-titulo="Cuidados Comuns" data-conteudo="Acompanhamento médico regular e apoio nas atividades do dia a dia garantem maior qualidade de vida.">
-    <h3>Cuidados Comuns</h3>
-    <p>Clique para saber mais</p>
-  </div>
-  <div class="card" data-titulo="Atividades Físicas" data-conteudo="Exercícios de baixo impacto, como caminhadas e alongamentos, auxiliam na mobilidade.">
-    <h3>Atividades Físicas</h3>
-    <p>Clique para saber mais</p>
-  </div>
-</div>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Cards com Modal e Leitura</title>
+    <link rel="stylesheet" href="estilo.css">
+</head>
+<body>
 
-<div id="modal" class="modal">
-  <div class="modal-content">
-    <span class="close-btn">&times;</span>
-    <h2 id="modal-titulo"></h2>
-    <p id="modal-conteudo"></p>
-    <button id="btn-leitura">Ouvir Leitura</button>
-  </div>
-</div>
+    <!-- Container dos Cards -->
+    <div class="card-container">
+        <div class="card" onclick="abrirModal('Informação 1', 'Aqui está o texto detalhado do primeiro card que será lido pelo assistente de voz.')">
+            <h3>Tópico 1</h3>
+            <p>Clique para expandir</p>
+        </div>
+        <div class="card" onclick="abrirModal('Informação 2', 'Este é o conteúdo do segundo card. Você pode adicionar quantos quiser!')">
+            <h3>Tópico 2</h3>
+            <p>Clique para expandir</p>
+        </div>
+    </div>
+
+    <!-- Estrutura do Modal -->
+    <div id="modalInfo" class="modal">
+        <div class="modal-content">
+            <span class="fechar" onclick="fecharModal()">&times;</span>
+            <h2 id="modal-titulo">Título</h2>
+            <p id="modal-texto">Conteúdo...</p>
+            <button class="btn-leitura" onclick="lerTexto()">🔊 Ouvir Leitura</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

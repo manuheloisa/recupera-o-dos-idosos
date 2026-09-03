@@ -1,27 +1,27 @@
-const cards = document.querySelectorAll('.card');
-const modal = document.getElementById('modal');
-const modalTitulo = document.getElementById('modal-titulo');
-const modalConteudo = document.getElementById('modal-conteudo');
-const closeBtn = document.querySelector('.close-btn');
-const btnLeitura = document.getElementById('btn-leitura');
+// Abre o modal e insere os textos dinamicamente
+function abrirModal(titulo, texto) {
+    document.getElementById('modal-titulo').innerText = titulo;
+    document.getElementById('modal-texto').innerText = texto;
+    document.getElementById('modalInfo').style.display = 'block';
+}
 
-cards.forEach(card => {
-  card.addEventListener('click', () => {
-    modalTitulo.innerText = card.dataset.titulo;
-    modalConteudo.innerText = card.dataset.conteudo;
-    modal.style.display = 'flex';
-  });
-});
+// Fecha o modal e interrompe a leitura se estiver rodando
+function fecharModal() {
+    document.getElementById('modalInfo').style.display = 'none';
+    window.speechSynthesis.cancel(); // Para a voz ao fechar
+}
 
-closeBtn.addEventListener('click', () => {
-  modal.style.display = 'none';
-  window.speechSynthesis.cancel();
-});
+// Função de leitura de texto (Text-to-Speech)
+function lerTexto() {
+    // Interrompe qualquer leitura anterior
+    window.speechSynthesis.cancel();
 
-btnLeitura.addEventListener('click', () => {
-  window.speechSynthesis.cancel();
-  const texto = `${modalTitulo.innerText}. ${modalConteudo.innerText}`;
-  const mensagem = new SpeechSynthesisUtterance(texto);
-  mensagem.lang = 'pt-BR';
-  window.speechSynthesis.speak(mensagem);
-});
+    const textoParaLer = document.getElementById('modal-texto').innerText;
+    const fala = new SpeechSynthesisUtterance(textoParaLer);
+    
+    // Configura o idioma para Português do Brasil
+    fala.lang = 'pt-BR';
+    fala.rate = 1.0; // Velocidade da voz
+    
+    window.speechSynthesis.speak(fala);
+}
