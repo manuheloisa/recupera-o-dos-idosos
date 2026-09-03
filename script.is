@@ -1,0 +1,96 @@
+document.addEventListener('DOMContentLoaded', () => {
+  const cards = document.querySelectorAll('.card');
+  const modal = document.getElementById('modal');
+  const modalTitle = document.getElementById('modal-title');
+  const modalBody = document.getElementById('modal-body');
+  const modalClose = document.getElementById('modal-close');
+  const btnRead = document.getElementById('btn-read');
+
+  const synth = window.speechSynthesis;
+  let isSpeaking = false;
+
+  // Abrir modal ao clicar em qualquer card
+  cards.forEach(card => {
+    card.addEventListener('click', () => {
+      const title = card.getAttribute('data-title');
+      const text = card.getAttribute('data-text');
+
+      modalTitle.textContent = title;
+      modalBody.textContent = text;
+
+      modal.classList.add('active');
+      modal.setAttribute('aria-hidden', 'false');
+    });
+  });
+
+  // Função para fechar o modal
+  function closeModal() {
+    modal.classList.remove('active');
+    modal.setAttribute('aria-hidden', 'true');
+    stopReading();
+  }
+
+  // Eventos para fechar o modal
+  modalClose.addEventListener('click', closeModal);
+
+  // Fechar se clicar na área escura fora do modal
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) {
+      closeModal();
+    }
+  });
+
+  // Fechar com a tecla ESC
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal.classList.contains('active')) {
+      closeModal();
+    }
+  });
+
+  // Lógica do Botão de Leitura (Sintetizador de Voz)
+  btnRead.addEventListener('click', () => {
+    if (isSpeaking) {
+      stopReading();
+    } else {
+      const textToRead = `${modalTitle.textContent}. ${modalBody.textContent}`;
+      startReading(textToRead);
+    }
+  });
+
+  function startReading(text) {
+    if ('speechSynthesis' in window) {
+      synth.cancel(); // Cancela qualquer áudio anterior em andamento
+
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = 'pt-BR';
+      utterance.rate = 0.95; // Velocidade ajustada para fala clara
+
+      utterance.onstart = () => {
+        isSpeaking = true;
+        btnRead.classList.add('reading');
+        btnRead.innerHTML = '⏸️ Parar Leitura';
+      };
+
+      utterance.onend = () => {
+        stopReading();
+      };
+
+      utterance.onerror = () => {
+        stopReading();
+      };
+
+      synth.speak(utterance);
+    } else {
+      alert('Seu navegador não suporta a função de leitura por voz.');
+    }
+  }
+
+  function stopReading() {
+    if ('speechSynthesis' in window) {
+      synth.cancel();
+    }
+    isSpeaking = false;
+    btnRead.classList.remove('reading');
+    btnRead.innerHTML = '🔊 Ouvir Texto';
+  }
+});
